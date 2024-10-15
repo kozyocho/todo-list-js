@@ -8,8 +8,6 @@ function getInputValue() {
   //input要素の内容を取得
   const inputValue = input.value;
 
-  console.log(inputValue);
-
   //追加ボタンを押したら入力欄を空白にする
   input.value = "";
 
@@ -43,6 +41,18 @@ function createIncompleteElement() {
   const incompleteTodoContent = document.createElement("div");
   incompleteTodoContent.className = "incomplete__todo-content";
   incompleteListElement.appendChild(incompleteTodoContent);
+
+  const incompleteCompleteButton = document.createElement("button");
+  incompleteCompleteButton.type = "button";
+  incompleteCompleteButton.className = "incomplete__complete-button";
+  incompleteCompleteButton.textContent = "完了";
+  incompleteListElement.appendChild(incompleteCompleteButton);
+
+  const incompleteDeleteButton = document.createElement("button");
+  incompleteDeleteButton.type = "button";
+  incompleteDeleteButton.className = "incomplete__delete-button";
+  incompleteDeleteButton.textContent = "削除";
+  incompleteListElement.appendChild(incompleteDeleteButton);
 
   const incompleteTodoContentText = document.createElement("p");
   incompleteTodoContentText.className = "incomplete__todo-content-text";
