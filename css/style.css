@@ -7,7 +7,7 @@ body {
   color: #000;
   text-align: center;
   font-family: "Open Sans";
-  font-size: 40px;
+  font-size: 32px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
@@ -22,6 +22,7 @@ body {
           justify-content: center;
   gap: 60px;
   margin-top: 52px;
+  height: 44px;
 }
 .input-wrapper input {
   width: 657px;
@@ -31,12 +32,10 @@ body {
 .input-wrapper__add-button {
   background: #fd8a18;
   padding: 12px 22px;
-}
-.input-wrapper__add-button button {
   color: #fff8f8;
   text-align: center;
   font-family: "Open Sans";
-  font-size: 24px;
+  font-size: 16px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
@@ -63,7 +62,7 @@ body {
   color: #000;
   text-align: center;
   font-family: "Open Sans";
-  font-size: 32px;
+  font-size: 24px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
@@ -94,6 +93,7 @@ body {
   display: -ms-flexbox;
   display: flex;
   gap: 30px;
+  height: 44px;
 }
 
 .incomplete__todo-content,
@@ -106,7 +106,7 @@ body {
 
 .incomplete__todo-content-text,
 .complete__todo-content-text {
-  font-size: 20px;
+  font-size: 16px;
 }
 
 .incomplete__complete-button,
@@ -118,7 +118,7 @@ body {
   color: #000;
   text-align: center;
   font-family: "Open Sans";
-  font-size: 20px;
+  font-size: 16px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
