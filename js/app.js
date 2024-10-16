@@ -38,7 +38,7 @@ function addIncomplete(inputvalue) {
 //要素を動的に生成する処理
 function createIncompleteElement() {
   const incompleteListElement = document.createElement("div");
-  incompleteListElement.className = "incomplete__list";
+  incompleteListElement.className = "todo__list-item";
 
   //生成した要素を追加する親要素を取得
   const parentElement = document.getElementById("parent");
@@ -47,37 +47,38 @@ function createIncompleteElement() {
   parentElement.appendChild(incompleteListElement);
 
   const incompleteTodoContent = document.createElement("div");
-  incompleteTodoContent.className = "incomplete__todo-content";
+  incompleteTodoContent.className = "todo__list-content";
   incompleteListElement.appendChild(incompleteTodoContent);
 
   const incompleteTodoContentText = document.createElement("p");
-  incompleteTodoContentText.className = "incomplete__todo-content-text";
+  incompleteTodoContentText.className = "todo__list-content-text";
   incompleteTodoContent.appendChild(incompleteTodoContentText);
 
   const incompleteCompleteButton = document.createElement("button");
   incompleteCompleteButton.type = "button";
-  incompleteCompleteButton.className = "incomplete__complete-button";
+  incompleteCompleteButton.className = "todo__complete-button";
   incompleteCompleteButton.textContent = "完了";
   incompleteListElement.appendChild(incompleteCompleteButton);
 
   const incompleteDeleteButton = document.createElement("button");
   incompleteDeleteButton.type = "button";
-  incompleteDeleteButton.className = "incomplete__delete-button";
+  incompleteDeleteButton.className = "todo__delete-button";
   incompleteDeleteButton.textContent = "削除";
   incompleteListElement.appendChild(incompleteDeleteButton);
 
-  //各ボタンにイベントリスナーを追加
+  //未完了ボックス内の完了ボタンにイベントリスナーを追加
   incompleteCompleteButton.addEventListener("click", function () {
-    const completeTarget = this.closest(".incomplete__list");
-    console.log(deleteTarget);
+    const completeTarget = this.closest(".todo__list-item");
+    console.log(completeTarget);
     if (completeTarget) {
       completeTarget.remove();
       //削除してから完了エリアに移動
     }
   });
 
+  //未完了ボックス内の削除ボタンにイベントリスナーを追加
   incompleteDeleteButton.addEventListener("click", function () {
-    const deleteTarget = this.closest(".incomplete__list");
+    const deleteTarget = this.closest(".todo__list-item");
     console.log(deleteTarget);
     if (deleteTarget) {
       deleteTarget.remove();
@@ -86,17 +87,3 @@ function createIncompleteElement() {
 
   return incompleteTodoContentText;
 }
-
-//削除ボタンを押したら要素を削除
-//ページロード時点ではボタンが存在しないから動作しない
-//const deleteButtons = document.querySelectorAll(".incomplete__delete-button"); //全ての削除ボタンを取得
-
-// deleteButtons.forEach((deleteButton) => {
-//   deleteButton.addEventListener("click", function () {
-//     // const clickedButton = event.target;
-//     console.log("削除ボタン押下");
-//     const deleteTarget = this.closest(".incomplete__list");
-
-//     deleteTarget.remove();
-//   });
-// });

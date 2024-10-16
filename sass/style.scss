@@ -74,30 +74,26 @@ body {
   overflow: scroll;
 }
 
-.incomplete__list,
-.complete__list {
+.todo__list-item {
   display: flex;
   gap: 30px;
   height: 44px;
 }
 
-.incomplete__todo-content,
-.complete__todo-content {
+.todo__list-content {
   width: 343px;
   background: #fff;
   padding: 12px 82px;
   text-align: center;
 }
 
-.incomplete__todo-content-text,
-.complete__todo-content-text {
+.todo__list-content-text {
   font-size: 16px;
 }
 
-.incomplete__complete-button,
-.incomplete__delete-button,
-.complete__back-button,
-.complete__delete-button {
+.todo__complete-button,
+.todo__delete-button,
+.todo__back-button {
   padding: 8px 18px;
   background: #fff;
   color: #000;
