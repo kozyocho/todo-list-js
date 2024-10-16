@@ -28,12 +28,7 @@ function addIncomplete(inputvalue) {
   target.textContent = inputvalue;
 }
 
-/*
-1. 入力内容を取得
-2. incomplete__list, incomplete__todo-content, incomplete__todo-content-textを生成
-3. ターゲットにするp要素を取得
-4. p要素のvalueに取得した内容を格納
-*/
+let todoText = "";
 
 //要素を動的に生成する処理
 function createIncompleteElement() {
@@ -41,10 +36,10 @@ function createIncompleteElement() {
   incompleteListElement.className = "todo__list-item";
 
   //生成した要素を追加する親要素を取得
-  const parentElement = document.getElementById("parent");
+  const incompleteParentElement = document.getElementById("incomplete-parent");
 
   //親要素の子要素として生成した要素を追加
-  parentElement.appendChild(incompleteListElement);
+  incompleteParentElement.appendChild(incompleteListElement);
 
   const incompleteTodoContent = document.createElement("div");
   incompleteTodoContent.className = "todo__list-content";
@@ -69,21 +64,79 @@ function createIncompleteElement() {
   //未完了ボックス内の完了ボタンにイベントリスナーを追加
   incompleteCompleteButton.addEventListener("click", function () {
     const completeTarget = this.closest(".todo__list-item");
-    console.log(completeTarget);
+
     if (completeTarget) {
+      //未完了ボックスから削除して完了ボックスに移動。テキストを保存しておく。
+      const todoTextElement = completeTarget.querySelector(
+        ".todo__list-content-text"
+      );
+      todoText = todoTextElement.textContent;
       completeTarget.remove();
-      //削除してから完了エリアに移動
+      createCompleteElement(todoText);
     }
   });
 
   //未完了ボックス内の削除ボタンにイベントリスナーを追加
   incompleteDeleteButton.addEventListener("click", function () {
     const deleteTarget = this.closest(".todo__list-item");
-    console.log(deleteTarget);
+
     if (deleteTarget) {
       deleteTarget.remove();
     }
   });
 
   return incompleteTodoContentText;
+}
+
+function createCompleteElement(todoText_) {
+  //完了エリアに移動
+  //生成した要素を追加するための親要素を取得
+  const completeParentElement = document.getElementById("complete-parent");
+
+  const completeListElement = document.createElement("div");
+  completeListElement.className = "todo__list-item";
+  completeParentElement.appendChild(completeListElement);
+
+  const completeTodoContent = document.createElement("div");
+  completeTodoContent.className = "todo__list-content";
+  completeListElement.appendChild(completeTodoContent);
+
+  const completeTodoContentText = document.createElement("p");
+  completeTodoContentText.className = "todo__list-content-text";
+  completeTodoContent.appendChild(completeTodoContentText);
+  completeTodoContentText.textContent = todoText_;
+
+  const completeBackButton = document.createElement("button");
+  completeBackButton.type = "button";
+  completeBackButton.className = "todo__back-button";
+  completeBackButton.textContent = "戻す";
+  completeListElement.appendChild(completeBackButton);
+
+  const completeDeleteButton = document.createElement("button");
+  completeDeleteButton.type = "button";
+  completeDeleteButton.className = "todo__delete-button";
+  completeDeleteButton.textContent = "削除";
+  completeListElement.appendChild(completeDeleteButton);
+
+  //完了ボックス内の戻るボタンにイベントリスナーを追加。クリックしたら未完了ボックスに移動
+  completeBackButton.addEventListener("click", function () {
+    const backTarget = this.closest(".todo__list-item");
+
+    if (backTarget) {
+      //完了ボックスから削除して未完了ボックスに移動
+      backTarget.remove();
+      createIncompleteElement();
+    }
+  });
+
+  //完了ボックス内の削除ボタンにイベントリスナーを追加
+  completeDeleteButton.addEventListener("click", function () {
+    const deleteTarget = this.closest(".todo__list-item");
+
+    if (deleteTarget) {
+      deleteTarget.remove();
+    }
+  });
+
+  return completeTodoContentText;
 }
