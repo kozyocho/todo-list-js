@@ -4,6 +4,9 @@ window.addEventListener("load", () => {
   addButton.addEventListener("click", getInputValue);
 });
 
+let inputValue = "";
+let todoText = "";
+
 //addボタンを押したら入力内容を取得
 //未完了エリアに取得した内容を表示
 function getInputValue() {
@@ -11,27 +14,17 @@ function getInputValue() {
   const input = document.getElementById("js-input");
 
   //input要素の内容を取得
-  const inputValue = input.value;
+  inputValue = input.value;
 
   //追加ボタンを押したら入力欄を空白にする
   input.value = "";
 
   //生成した要素を未完了エリアに追加する関数を追加
-  addIncomplete(inputValue);
+  createIncompleteElement();
 }
-
-function addIncomplete(inputvalue) {
-  //作成したp要素を取得
-  const target = createIncompleteElement();
-
-  //p要素に入力内容を設定
-  target.textContent = inputvalue;
-}
-
-let todoText = "";
 
 //要素を動的に生成する処理
-function createIncompleteElement() {
+function createIncompleteElement(todoText_) {
   const incompleteListElement = document.createElement("div");
   incompleteListElement.className = "todo__list-item";
 
@@ -48,6 +41,11 @@ function createIncompleteElement() {
   const incompleteTodoContentText = document.createElement("p");
   incompleteTodoContentText.className = "todo__list-content-text";
   incompleteTodoContent.appendChild(incompleteTodoContentText);
+  if (todoText_) {
+    incompleteTodoContentText.textContent = todoText_;
+  } else {
+    incompleteTodoContentText.textContent = inputValue;
+  }
 
   const incompleteCompleteButton = document.createElement("button");
   incompleteCompleteButton.type = "button";
@@ -104,7 +102,11 @@ function createCompleteElement(todoText_) {
   const completeTodoContentText = document.createElement("p");
   completeTodoContentText.className = "todo__list-content-text";
   completeTodoContent.appendChild(completeTodoContentText);
-  completeTodoContentText.textContent = todoText_;
+  if (todoText_) {
+    completeTodoContentText.textContent = todoText_;
+  } else {
+    console.log("テキストがありません。");
+  }
 
   const completeBackButton = document.createElement("button");
   completeBackButton.type = "button";
@@ -124,8 +126,13 @@ function createCompleteElement(todoText_) {
 
     if (backTarget) {
       //完了ボックスから削除して未完了ボックスに移動
+      //戻す要素の子要素にある.todo__list-content-textを取得
+      const todoTextElement = backTarget.querySelector(
+        ".todo__list-content-text"
+      );
+      todoText = todoTextElement.textContent;
       backTarget.remove();
-      createIncompleteElement();
+      createIncompleteElement(todoText);
     }
   });
 
